@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const LogSchema = new Schema({
-  date: { type: Date.now },
+  date: { type: Date, default: Date.now },
   type: {
     type: String,
     enum: ["Created", "Updated", "Deleted"],
