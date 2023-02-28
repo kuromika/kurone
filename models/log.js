@@ -8,7 +8,11 @@ const LogSchema = new Schema({
     enum: ["Created", "Updated", "Deleted"],
     required: true,
   },
-  model: { type: String, required: true },
+  model: {
+    type: String,
+    enum: ["Franchise", "Character", "Figure"],
+    required: true,
+  },
   modelId: { type: String },
   changes: [{ type: String }],
 });

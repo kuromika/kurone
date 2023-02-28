@@ -6,7 +6,7 @@ const FranchiseSchema = new Schema({
   description: { type: String, required: true },
 });
 
-Franchise.virtual("url").get(function () {
+FranchiseSchema.virtual("url").get(function () {
   return `/franchise/${this._id}`;
 });
 

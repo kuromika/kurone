@@ -17,7 +17,7 @@ const FigureSchema = new Schema({
   height: { type: String },
 });
 
-Figure.virtual("url").get(function () {
+FigureSchema.virtual("url").get(function () {
   return `/figure/${this._id}`;
 });
 
