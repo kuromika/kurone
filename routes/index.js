@@ -1,9 +1,35 @@
-var express = require('express');
+const Franchise = require("../models/franchise");
+const Character = require("../models/character");
+const Figure = require("../models/figure");
+const Log = require("../models/log");
+var express = require("express");
 var router = express.Router();
+const async = require("async");
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get("/", (req, res) => {
+  async.parallel(
+    {
+      character_count(cb) {
+        Character.countDocuments({}, cb);
+      },
+      franchise_count(cb) {
+        Franchise.countDocuments({}, cb);
+      },
+      figure_count(cb) {
+        Figure.countDocuments({}, cb);
+      },
+      logs(cb) {
+        Log.find({}).sort({ date: -1 }).exec(cb);
+      },
+    },
+    (err, results) => {
+      res.render("index", {
+        title: "Kurone Figures",
+        error: err,
+        data: results,
+      });
+    }
+  );
 });
 
 module.exports = router;
