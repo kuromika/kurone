@@ -13,7 +13,7 @@ const FigureSchema = new Schema({
   includes: { type: String },
   price: { type: Number, min: 0 },
   store: { type: String },
-  height: { type: Number },
+  height: { type: Number, min: 0 },
 });
 
 FigureSchema.virtual("url").get(function () {
