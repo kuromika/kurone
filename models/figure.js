@@ -11,10 +11,9 @@ const FigureSchema = new Schema({
   manufacturer: { type: String },
   specs: { type: String },
   includes: { type: String },
-  category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
   price: { type: Number, min: 0 },
   store: { type: String },
-  height: { type: String },
+  height: { type: Number },
 });
 
 FigureSchema.virtual("url").get(function () {

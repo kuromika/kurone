@@ -113,3 +113,66 @@ function characterCreate(name, franchise, callback) {
     }
   );
 }
+
+function figureCreate(
+  name,
+  character,
+  manufacturer,
+  specs,
+  includes,
+  price,
+  store,
+  height,
+  callback
+) {
+  async.waterfall(
+    [
+      function (cb) {
+        figuredetail = {
+          name: name,
+          character: character,
+          manufacturer: manufacturer,
+          specs: specs,
+          includes: includes,
+          price: price,
+          store: store,
+          height: height,
+        };
+        let figure = new Figure(figuredetail);
+        figure.save(function (err) {
+          if (err) {
+            cb(err, null);
+            return;
+          }
+          console.log("New Figure: " + figure);
+          figures.push(figure);
+          cb(null, figure);
+        });
+      },
+      function (figure, cb) {
+        logdetail = {
+          type: "Created",
+          model: "Figure",
+          modelId: figure._id,
+        };
+        let log = new Log(logdetail);
+        log.save(function (err) {
+          if (err) {
+            cb(err, null);
+            return;
+          }
+          console.log("New Log: " + log);
+          logs.push(log);
+          cb(null, [figure, log]);
+        });
+      },
+    ],
+    function (err, results) {
+      if (err) {
+        callback(err, null);
+        return;
+      }
+      callback(null, results);
+    }
+  );
+}
