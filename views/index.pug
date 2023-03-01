@@ -1,5 +1,26 @@
 extends layout
 
 block content
-  h1= title
   p Welcome to #{title}
+
+  section
+    h2 Database information: 
+    ul 
+      li #[strong Figures:] #{data.figure_count}
+      li #[strong Characters:] #{data.character_count}
+      li #[strong Franchises:] #{data.franchise_count}
+  section
+    h2 Latest updates:
+    ul 
+      each log in data.logs
+        li
+          p 
+            span #{log.shortDate}
+            br
+            span #{log.type} #{log.model} 
+            a(href=`/${log.model.toLowerCase()}/${log.modelId}`) #{log.modelId}
+          if log.changes.length
+            ul
+              each change in log.changes
+                li #{change}
+
