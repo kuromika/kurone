@@ -27,6 +27,7 @@ router.get("/", (req, res) => {
         title: "Kurone Figures",
         error: err,
         data: results,
+        page: 0,
       });
     }
   );
