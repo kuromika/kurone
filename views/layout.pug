@@ -1,22 +1,22 @@
 doctype html
 html
   head
-    title Kurone Figures
+    title Kurone
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    header
-      h1 KuroneFigures
+  body(class='flex flex-col items-center justify-center')  
+    header(class='w-[50%]')
+      h1(class='text-4xl font-bold italic mt-5 mb-5') Kurone
       nav
-        ul(class='flex')
-          li
-            a(href='/') Index
-          li
-            a(href='/figures') Figures
-          li
-            a(href='/characters') Characters
-          li
-            a(href='/franchises') Franchises
-          li 
-            a(href='/about') About
-
-    block content
+        ul(class='flex gap-5 transition-colors items-center')
+          li(class=`${page === 0 ? 'bg-black text-white ' : ''}hover:bg-black hover:text-white transition-colors ease-in duration-100 font-semibold`)
+            a(href='/' class='p-1 block') Index
+          li(class=`${page === 1 ? 'bg-black text-white' : ''}hover:bg-black hover:text-white transition-colors ease-in duration-100 font-semibold`)
+            a(href='/figures' class='p-1 block') Figures
+          li(class=`${page === 2 ? 'bg-black text-white' : ''}hover:bg-black hover:text-white transition-colors ease-in duration-100 font-semibold`)
+            a(href='/characters' class='p-1 block') Characters
+          li(class=`${page === 3 ? 'bg-black text-white' : ''}hover:bg-black hover:text-white transition-colors ease-in duration-100 font-semibold`)
+            a(href='/franchises' class='p-1 block') Franchises
+          li(class=`${page === 4 ? 'bg-black text-white' : ''}hover:bg-black hover:text-white transition-colors ease-in duration-100 font-semibold`) 
+            a(href='/about' class='p-1 block') About
+    main(class='w-[50%] mt-5')
+      block content
