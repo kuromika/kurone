@@ -1,3 +1,13 @@
-@tailwind base;
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap');@tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    html{
+        font-family: 'Zen Kaku Gothic New', "ヒラギノ角ゴ Pro W3",
+            "Hiragino Kaku Gothic Pro",
+            "メイリオ",
+            Meiryo,
+            "ＭＳ Ｐゴシック";
+    }
+}
