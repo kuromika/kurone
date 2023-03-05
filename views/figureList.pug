@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1= title
+    ul 
+        each figure in figures
+            li
+                a(href=figure.url) #{figure.name}   
+        else
+            li There aren't figures yet
