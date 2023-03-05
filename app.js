@@ -9,6 +9,7 @@ const livereLoad = require("livereload");
 const connectLiveReload = require("connect-livereload");
 
 var indexRouter = require("./routes/index");
+const figureRouter = require('./routes/figureRoute.js');
 
 const liveReloadServer = livereLoad.createServer();
 liveReloadServer.server.once("connection", () => {
@@ -42,6 +43,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
+app.use("/", figureRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
