@@ -15,3 +15,17 @@ exports.figureList = (req, res, next) => {
         })
     });
 }
+
+exports.getFigure = (req, res, next) => {
+    Figure.findById(req.params.id).populate({path:'character', populate: [{path: 'franchise'}]}).
+        exec(function(err, result){
+            if (err){
+                return next(err)
+            } 
+            res.render('figureDetail', {
+                figure: result,
+                title: 'Figure Details',
+            })
+        });
+}
+
