@@ -1,0 +1,9 @@
+extends layout
+block content
+    title= title
+    ul
+        each character in characters
+            li
+                a(href=character.url) #{character.name}
+        else 
+            li There aren't characters
