@@ -1,4 +1,5 @@
 const async = require('async');
+const Character = require('..models/character.js');
 const Figure = require('../models/figure.js');
 const Log = require('../models/log.js');
 const {body, validationResult} = require('express-validator');
@@ -29,3 +30,13 @@ exports.getFigure = (req, res, next) => {
         });
 }
 
+exports.getCreateFigure = (req, res, next) => {
+    Character.find({}).exec(function(err, result){
+        if (err){
+            return next(err);
+        }
+        res.render('createFigure', {
+            characters: result,
+        })
+    })
+}
