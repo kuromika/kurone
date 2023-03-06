@@ -1,0 +1,9 @@
+extends layout
+block content
+    if franchises.length
+        ul
+            each franchise in franchises
+                li
+                    a(href=franchise.url) #{franchise.name}
+    else
+        p There aren't any franchises at the moment.
