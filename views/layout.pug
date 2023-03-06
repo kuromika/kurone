@@ -5,7 +5,9 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
   body(class='flex flex-col items-center justify-center mb-10')  
     header(class='w-[50%]')
-      h1(class='text-4xl font-bold italic mt-5 mb-5') Kurone
+      div(class='flex mt-5 mb-5 items-end')
+          img(src='/images/figure.jpg' class='inline w-16 h-16')
+          h1(class='text-4xl font-bold italic') Kurone
       nav
         ul(class='flex gap-5 transition-colors items-center')
           li(class=`${page === 0 ? 'bg-black text-white ' : ''}hover:bg-black hover:text-white transition-colors ease-in duration-100 font-semibold`)
