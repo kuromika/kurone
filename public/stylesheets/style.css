@@ -401,12 +401,10 @@ video {
 .ease-in{
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
-
 .hover\:bg-black:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
-
 .hover\:text-white:hover{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
