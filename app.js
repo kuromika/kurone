@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const livereLoad = require("livereload");
 const connectLiveReload = require("connect-livereload");
 
+const franchiseRouter = require('./routes/franchiseRoute.js');
 const characterRouter = require('./routes/characterRoute.js');
 var indexRouter = require("./routes/index");
 const figureRouter = require('./routes/figureRoute.js');
@@ -46,6 +47,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/", figureRouter);
 app.use('/', characterRouter);
+app.use('/', franchiseRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
