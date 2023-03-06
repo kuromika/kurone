@@ -1,0 +1,10 @@
+extends layout
+block content
+   h1= character.name
+   h2 #[strong Figures:]
+   ul
+    each figure in figures
+        li
+            a(href=figure.url) #{figure.name}
+    else
+        li This character doesn't have any figures yet.
