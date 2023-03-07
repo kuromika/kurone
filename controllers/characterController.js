@@ -1,4 +1,5 @@
 const async = require('async');
+const LogController = require('./logController.js');
 const Franchise = require('../models/franchise.js');
 const Figure = require('../models/figure.js');
 const Character = require('../models/character.js');
@@ -76,11 +77,25 @@ exports.postCharacterCreate = [
             name: req.body.name,
             franchise: req.body.franchise,
         })
-        character.save((err)=> {
-            if (err){
-                return next(err);
+
+        async.parallel(
+            {
+                saveCharacter(cb){
+                    character.save(cb);
+                },
+                saveLog(cb){
+                    LogController.createLog({
+                        type: 'Created',
+                        model: 'Character',
+                        references: character._id,
+                    }, cb)
+                }
+            }, (err, results) => {
+                if (err){
+                    return next(err);
+                }
+                res.redirect(character.url);
             }
-            res.redirect(character.url);
-        })
+        );
     }
 ]
