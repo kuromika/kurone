@@ -1,4 +1,5 @@
 const async = require('async');
+const logController = require('./logController.js');
 const Character = require('../models/character.js');
 const Figure = require('../models/figure.js');
 const Log = require('../models/log.js');
@@ -80,7 +81,18 @@ exports.postCreateFigure = [
             height: req.body.height
         })
 
-        figure.save((err) => {
+        async.parallel({
+            saveFigure(cb){
+                figure.save(cb);
+            },
+            saveLog(cb){
+                logController.createLog({
+                    type: "Created",
+                    model: "Figure",
+                    references: figure._id,
+                }, cb)
+            }
+        }, (err, results) => {
             if (err){
                 return next(err);
             }
