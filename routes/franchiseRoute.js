@@ -3,6 +3,7 @@ const router = express.Router();
 const franchiseController = require('../controllers/franchiseController');
 
 router.get('/franchises', franchiseController.franchiseList);
+router.get('/franchise/create', franchiseController.getFranchiseCreate);
 router.get('/franchise/:id', franchiseController.getFranchise);
 
 module.exports = router;
