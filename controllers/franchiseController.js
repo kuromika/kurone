@@ -37,3 +37,6 @@ exports.getFranchise = (req, res, next) => {
     )
 }
 
+exports.getFranchiseCreate = (req, res, next) => {
+    res.render('createFranchise')
+}   
