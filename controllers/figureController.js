@@ -80,7 +80,8 @@ exports.postCreateFigure = [
             store: req.body.store,
             height: req.body.height
         })
-
+        
+        //this could AND should be changed to a transaction
         async.parallel({
             saveFigure(cb){
                 figure.save(cb);
