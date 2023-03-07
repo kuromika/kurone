@@ -52,7 +52,7 @@ exports.postCreateFigure = [
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()){
-            Character.find({}).exec(function(err, results){
+            Character.find({}).sort({name:1}).exec(function(err, results){
                 if (err){
                     return next(err)
                 }
