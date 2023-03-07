@@ -40,7 +40,7 @@ function franchiseCreate(name, description, callback) {
         logdetail = {
           type: "Created",
           model: "Franchise",
-          modelId: franchise._id,
+            references: franchise._id,
         };
 
         let log = new Log(logdetail);
@@ -86,7 +86,7 @@ function characterCreate(name, franchise, callback) {
         logdetail = {
           type: "Created",
           model: "Character",
-          modelId: character._id,
+            references: character._id,
         };
         let log = new Log(logdetail);
         log.save(function (err) {
@@ -147,7 +147,7 @@ function figureCreate(
         logdetail = {
           type: "Created",
           model: "Figure",
-          modelId: figure._id,
+            references: figure._id,
         };
         let log = new Log(logdetail);
         log.save(function (err) {
