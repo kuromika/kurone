@@ -14,7 +14,7 @@ const LogSchema = new Schema({
     enum: ["Franchise", "Character", "Figure"],
     required: true,
   },
-  modelId: { type: String },
+    references: { type: Schema.Types.ObjectId, refPath: 'model'},
   changes: [{ type: String }],
 });
 
