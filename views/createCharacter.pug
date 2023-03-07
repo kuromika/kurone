@@ -1,0 +1,17 @@
+extends layout
+
+block content
+
+    h1 Create new character
+    form(method='post' action='')
+        div
+            label(for='name') #[strong Name (required):]
+            input(type='text' name='name' id='name' required)
+        div
+            label(for='franchise') #[strong Franchise (required):]
+            select(name='franchise' id='franchise' required)
+                each franchise in franchises
+                    option(value=franchise._id) #{franchise.name}
+        button(type='submit') Create
+
+
