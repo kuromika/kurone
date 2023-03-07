@@ -1,4 +1,5 @@
 const async = require('async');
+const Franchise = require('../models/franchise.js');
 const Figure = require('../models/figure.js');
 const Character = require('../models/character.js');
 const Log = require('../models/log');
@@ -37,4 +38,13 @@ exports.getCharacter = (req, res, next) => {
         })
 }
 
-
+exports.getCharacterCreate = (req, res, next) => {
+    Franchise.find({}).sort({name:1}).exec(function(err, results){
+        if (err){
+            return next(err);
+        }
+        res.render('createCharacter', {
+            franchises: results,
+        })
+    })
+}
