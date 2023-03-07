@@ -6,12 +6,13 @@ block content
     form(method='post' action='')
         div
             label(for='name') #[strong Name (required):]
-            input(type='text' name='name' id='name' required)
+            input(type='text' name='name' id='name'
+                value=(character !== undefined ? character.name : '') required)
         div
             label(for='franchise') #[strong Franchise (required):]
             select(name='franchise' id='franchise' required)
                 each franchise in franchises
-                    option(value=franchise._id) #{franchise.name}
+                    option(value=franchise._id selected=franchise.selected) #{franchise.name}
         button(type='submit') Create
 
 
