@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
         Figure.countDocuments({}, cb);
       },
       logs(cb) {
-        Log.find({}).sort({ date: -1 }).exec(cb);
+        Log.find({}).sort({ date: -1 }).populate('references').exec(cb);
       },
     },
     (err, results) => {
