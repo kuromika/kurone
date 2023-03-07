@@ -354,20 +354,14 @@ video {
 .flex{
   display: flex;
 }
-.h-14{
-  height: 3.5rem;
-}
 .h-16{
   height: 4rem;
 }
-.w-\[50\%\]{
-  width: 50%;
-}
-.w-14{
-  width: 3.5rem;
-}
 .w-16{
   width: 4rem;
+}
+.w-\[50\%\]{
+  width: 50%;
 }
 .flex-col{
   flex-direction: column;
