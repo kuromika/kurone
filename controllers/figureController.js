@@ -40,3 +40,52 @@ exports.getCreateFigure = (req, res, next) => {
         })
     })
 }
+
+exports.postCreateFigure = [
+    body('name', 'Name must not be empty').trim().isLength({min:1}).escape(),
+    body('character', 'Author must not be empty').trim().isLength({min:1}).escape(),
+    body('manufacturer').optional({checkFalsy:true}).escape(),
+    body('specs').optional({checkFalsy:true}).escape(),
+    body('includes').optional({checkFalsy:true}).escape(),
+    body('store', 'Invalid store URL').optional({checkFalsy:true}).isURL(),
+    body('height', 'Invalid height').optional({checkFalsy:true}).trim().isNumeric().isLength({min:1}),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()){
+            Character.find({}).exec(function(err, results){
+                if (err){
+                    return next(err)
+                }
+                for (const character of results){
+                    if (character.id.toString() === req.body.character){
+                        character.selected = true;
+                        break;
+                    }
+                }
+                res.render("createFigure", {
+                    figure: req.body,
+                    characters: results,
+                    errors: errors.array(),
+                })
+            })
+            return;
+        }
+        const figure = new Figure({
+            name: req.body.name,
+            character: req.body.character,
+            manufacturer: req.body.manufacturer,
+            specs: req.body.specs,
+            includes: req.body.includes,
+            store: req.body.store,
+            height: req.body.height
+        })
+
+        figure.save((err) => {
+            if (err){
+                return next(err);
+            }
+            res.redirect(figure.url);
+        })
+    }
+]
+
