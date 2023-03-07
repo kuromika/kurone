@@ -48,3 +48,39 @@ exports.getCharacterCreate = (req, res, next) => {
         })
     })
 }
+
+exports.postCharacterCreate = [
+    body('name', 'Name must not be empty').trim().isLength({min:1}).escape(),
+    body('franchise', 'You need to select a franchise').trim().isLength({min:1}).escape(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()){
+            Franchise.find({}).sort({name:1}).exec(function(err, results){
+                if (err){
+                    return next(err);
+                }
+                for (const franchise in results){
+                    if (franchise._id == req.body.franchise){
+                        franchise.selected = true;
+                        break;
+                    }
+                }
+                res.send('createCharacter', {
+                    franchise: req.body,
+                    errors: errors.array(),
+                })
+            })
+            return
+        }
+        const character = new Character({
+            name: req.body.name,
+            franchise: req.body.franchise,
+        })
+        character.save((err)=> {
+            if (err){
+                return next(err);
+            }
+            res.redirect(character.url);
+        })
+    }
+]
