@@ -1,0 +1,15 @@
+extends layout
+block content
+
+    h1 Create new franchise
+    form(method='post' action='')
+        div
+            label(for='name') #[strong Name:]
+            input(type='text' name='name' id='name' required)
+        div
+            label(for='description') #[strong Description:]
+            input(type='text' name='description' id='description' required
+                placeholder='Manga, anime, other, ... alternative names')
+        button(type='submit') Create
+
+
