@@ -4,7 +4,7 @@ block content
     h1 #[strong Delete character:] #{character.name}
     p This character is in the franchise: #{character.franchise.name}
     if figures.length
-        p You need to delete this figures first before attempting to delete this character.
+        p You need to delete these figures first before attempting to delete this character.
         ul
             each figure in figures
                 li
