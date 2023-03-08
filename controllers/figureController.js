@@ -24,6 +24,11 @@ exports.getFigure = (req, res, next) => {
             if (err){
                 return next(err)
             } 
+            if (result === null){
+                const err = new Error("Figure not found");
+                err.status = 404;
+                return next(err);
+            }
             res.render('figureDetail', {
                 figure: result,
                 title: 'Figure Details',
