@@ -90,7 +90,8 @@ exports.postCreateFigure = [
                 logController.createLog({
                     type: "Created",
                     model: "Figure",
-                    references: figure._id,
+                    modelId: figure._id,
+                    name: figure.name
                 }, cb)
             }
         }, (err, results) => {
@@ -136,7 +137,8 @@ exports.postDeleteFigure = (req,res,next) => {
                         {
                             type: 'Deleted',
                             model: 'Figure',
-                            changes: [`Deleted Figure ${result.name}`],
+                            modelId: result._id,
+                            name: result.name
                         }, cb)
                 }
             }, (err, results) => {
