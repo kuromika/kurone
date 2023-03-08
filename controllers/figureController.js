@@ -102,3 +102,50 @@ exports.postCreateFigure = [
     }
 ]
 
+exports.getDeleteFigure = (req, res, next) => {
+    Figure.findById(req.params.id).exec(function(err, result){
+        if (err){
+            return next(err)
+        }
+        if (result === null){
+            res.redirect('/figures');
+            return;
+        }
+        res.render('deleteFigure',{
+            figure: result,
+        })
+    })
+}
+
+exports.postDeleteFigure = (req,res,next) => {
+    Figure.findById(req.body.figureid).exec(function(err, result){
+        if (err){
+            return next(err)
+        }
+        if (result === null){
+            res.redirect('/figures');
+            return;
+        }
+        async.parallel(
+            {
+                deleteFigure(cb){
+                    Figure.findByIdAndDelete(req.body.figureid, cb);
+                },
+                saveLog(cb){
+                    logController.createLog(
+                        {
+                            type: 'Deleted',
+                            model: 'Figure',
+                            changes: [`Deleted Figure ${result.name}`],
+                        }, cb)
+                }
+            }, (err, results) => {
+                if (err){
+                    return next(err);
+                }
+                res.redirect('/figures');
+            }
+        )
+
+    })
+}
