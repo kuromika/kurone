@@ -17,8 +17,8 @@ block content
           p 
             span #[strong #{log.shortDate}]
             br
-            span #{log.type} #{log.model} 
-            a(href=log.references.url) #[strong #{log.references.name}]
+            span #[strong #{log.type}] #{log.model.toLowerCase()} 
+                 a(href=`/${log.model.toLowerCase()}/${log.modelId}`) #[strong #{log.name}]
           if log.changes.length
             ul
               each change in log.changes
