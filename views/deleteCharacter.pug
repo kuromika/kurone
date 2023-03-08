@@ -1,0 +1,16 @@
+
+extends layout
+block content
+    h1 #[strong Delete character:] #{character.name}
+    p This character is in the franchise: #{character.franchise.name}
+    if figures.length
+        p You need to delete this figures first before attempting to delete this character.
+        ul
+            each figure in figures
+                li
+                    a(href=figure.url) #[strong #{figure.name}]
+    else
+        p Are you sure that you want to delete the character #[strong #{character.name}]? 
+        form(method='post' action='')
+            input(type='hidden' name='characterid' value=character._id required)
+            button(type='submit') Delete
