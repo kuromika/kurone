@@ -105,3 +105,27 @@ exports.postCharacterCreate = [
         );
     }
 ]
+
+exports.getDeleteCharacter = (req, res, next) => {
+    async.parallel(
+        {
+            character(cb){
+                Character.findById(req.params.id).populate('franchise').exec(cb);
+            },
+            figures(cb){
+                Figure.find({character: req.params.id}).exec(cb);
+            },
+        }, (err, results) => {
+            if (err){
+                return next(err);
+            }
+            if (results.character === null){
+                res.redirect('/characters/');
+            }
+            res.render('deleteCharacter', {
+                character: results.character,
+                figures: results.figures,
+            })
+        }
+    )
+}
