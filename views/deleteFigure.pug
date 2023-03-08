@@ -1,0 +1,8 @@
+extends layout
+block content
+    h1 #[strong Delete figure:] #{figure.name}
+
+    p Are you sure that you want to delete the figure #[strong #{figure.name}]? 
+    form(method='post' action='')
+        input(type='hidden' name='figureid' value=figure._id required)
+        button(type='submit') Delete
