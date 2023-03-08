@@ -32,6 +32,11 @@ exports.getCharacter = (req, res, next) => {
             if (err){
                 return next(err);
             }
+            if (results.character === null){
+                const err = new Error('Character not found');
+                err.status = 404;
+                return next(err);
+            }
             res.render('characterDetail', {
                 character: results.character,
                 figures: results.figures,
