@@ -1,0 +1,16 @@
+
+extends layout
+block content
+    h1 #[strong Delete franchise:] #{franchise.name}
+    p #[strong Description:] #{franchise.description}
+    if characters.length
+        p You need to delete these characters first before attempting to delete this franchise.
+        ul
+            each character in characters
+                li
+                    a(href=character.url) #[strong #{character.name}]
+    else
+        p Are you sure that you want to delete the franchise #[strong #{franchise.name}]? 
+        form(method='post' action='')
+            input(type='hidden' name='franchiseid' value=franchise._id required)
+            button(type='submit') Delete
