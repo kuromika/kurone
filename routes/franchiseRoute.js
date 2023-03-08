@@ -8,6 +8,7 @@ router.get('/franchise/create', franchiseController.getFranchiseCreate);
 router.post('/franchise/create', franchiseController.postFranchiseCreate);
 
 router.get('/franchise/delete/:id', franchiseController.getFranchiseDelete);
+router.post('/franchise/delete/:id', franchiseController.postFranchiseDelete);
 
 router.get('/franchise/:id', franchiseController.getFranchise);
 
