@@ -87,7 +87,8 @@ exports.postCharacterCreate = [
                     LogController.createLog({
                         type: 'Created',
                         model: 'Character',
-                        references: character._id,
+                        modelId: character._id,
+                        name: character.name
                     }, cb)
                 }
             }, (err, results) => {

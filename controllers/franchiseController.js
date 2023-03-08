@@ -71,7 +71,8 @@ exports.postFranchiseCreate = [
                         {
                             type: 'Created',
                             model: 'Franchise',
-                            references: franchise._id,
+                            modelId: franchise._id,
+                            name: franchise.name,
                         }, cb)
                 }
             }, (err, results) => {
