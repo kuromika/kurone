@@ -5,7 +5,8 @@ exports.createLog = (options, cb) => {
         {
             type: options.type,
             model: options.model,
-            references: options.references,
+            modelId: options.modelId,
+            name: options.name,
             changes: options.changes,
         })
     log.save(function(err){
