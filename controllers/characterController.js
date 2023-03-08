@@ -129,3 +129,52 @@ exports.getDeleteCharacter = (req, res, next) => {
         }
     )
 }
+exports.postDeleteCharacter = (req, res, next) => {
+    async.parallel(
+        {
+            character(cb){
+                Character.findById(req.params.id).populate('franchise').exec(cb);
+            },
+            figures(cb){
+                Figure.find({character: req.params.id}).exec(cb);
+            },
+        }, (err, results) => {
+            if (err){
+                return next(err);
+            }
+            if (results.character === null){
+                res.redirect('/characters/');
+                return;
+            }
+            if (results.figures.length > 0){
+                res.render('deleteCharacter', {
+                    character: results.character,
+                    figures: results.figures,
+                })
+                return;
+            }
+            async.parallel(
+                {
+                    deleteCharacter(cb){
+                        Character.findByIdAndDelete(req.params.id).exec(cb);
+                    },
+                    saveLog(cb){
+                        LogController.createLog(
+                            {
+                                name: results.character.name,
+                                type: 'Deleted',
+                                model: 'Character',
+                                modelId: results.character._id,
+                            }, cb);
+                    }
+                }, (err, results) => {
+                    if (err){
+                        return next(err);
+                    }
+                    res.redirect('/characters');
+                }
+            )
+        }
+    )
+}
+
