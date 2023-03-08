@@ -89,3 +89,28 @@ exports.postFranchiseCreate = [
         )
     }
 ]
+
+exports.getFranchiseDelete = (req, res, next) => {
+    async.parallel(
+        {
+            franchise(cb){
+                Franchise.findById(req.params.id).exec(cb);
+            },
+            characters(cb){
+                Character.find({franchise: req.params.id}).exec(cb);
+            }
+        }, (err, results) => {
+            if (err){
+                return next(err);
+            }
+            if (results.franchise === null){
+                res.redirect('/franchises/');
+                return;
+            }
+            res.render('deleteFranchise', {
+                franchise: results.franchise,
+                characters: results.characters,
+            });
+        }
+    );
+}
