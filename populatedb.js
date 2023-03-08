@@ -174,7 +174,7 @@ function figureCreate(
 }
 
 function createFranchises(cb) {
-  async.parallel(
+  async.series(
     [
       function (callback) {
         franchiseCreate(
@@ -202,7 +202,7 @@ function createFranchises(cb) {
 }
 
 function createCharacters(cb) {
-  async.parallel(
+  async.series(
     [
       function (callback) {
         characterCreate("Kuroneko (Ruri Gokou)", franchises[0], callback);
@@ -225,7 +225,7 @@ function createCharacters(cb) {
 }
 
 function createFigures(cb) {
-  async.parallel(
+  async.series(
     [
       function (callback) {
         figureCreate(
