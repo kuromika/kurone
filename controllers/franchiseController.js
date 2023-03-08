@@ -31,6 +31,11 @@ exports.getFranchise = (req, res, next) => {
             if (err){
                 return next(err);
             }
+            if (results.franchise === null){
+                const err = new Error('Franchise not found');
+                err.status = 404;
+                return next(err);
+            }
             res.render('franchiseDetail', {
                 franchise: results.franchise,
                 characters: results.characters,
