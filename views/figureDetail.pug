@@ -5,4 +5,7 @@ block content
     ul
         li #[strong Character:] #{figure.character.name}
         li #[strong Franchise:] #{figure.character.franchise.name}
-    a(href=`/figure/delete/${figure._id}`) Delete this figure
+    p
+        a(href=`/figure/update/${figure._id}`) Update this figure
+    p
+        a(href=`/figure/delete/${figure._id}`) Delete this figure
