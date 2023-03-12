@@ -42,6 +42,7 @@ exports.getCreateFigure = (req, res, next) => {
             return next(err);
         }
         res.render('createFigure', {
+            title: 'create',
             characters: result,
         })
     })
@@ -53,6 +54,7 @@ exports.postCreateFigure = [
     body('manufacturer').optional({checkFalsy:true}).escape(),
     body('specs').optional({checkFalsy:true}).escape(),
     body('includes').optional({checkFalsy:true}).escape(),
+    body('price').optional({checkFalsy:true}).escape(),
     body('store', 'Invalid store URL').optional({checkFalsy:true}).isURL(),
     body('height', 'Invalid height').optional({checkFalsy:true}).trim().isNumeric().isLength({min:1}),
     (req, res, next) => {
@@ -69,6 +71,7 @@ exports.postCreateFigure = [
                     }
                 }
                 res.render("createFigure", {
+                    title: 'create',
                     figure: req.body,
                     characters: results,
                     errors: errors.array(),
@@ -82,6 +85,7 @@ exports.postCreateFigure = [
             manufacturer: req.body.manufacturer,
             specs: req.body.specs,
             includes: req.body.includes,
+            price: req.body.price,
             store: req.body.store,
             height: req.body.height
         })
@@ -155,4 +159,37 @@ exports.postDeleteFigure = (req,res,next) => {
         )
 
     })
+}
+
+exports.getUpdateFigure = (req, res, next) => {
+    async.parallel(
+        {
+            characters(cb){
+                Character.find({}).sort({name: 1}).exec(cb);
+            },
+            figure(cb){
+                Figure.findById(req.params.id).exec(cb);
+            }
+        }, (err, results) => {
+            if (err){
+                return next(err);
+            }
+            if (results.figure === null){
+                const err = new Error('Figure not found');
+                err.status = 404;
+                return next(err);
+            }
+            for (const character of results.characters){
+                if (character._id.toString() === results.figure.character.toString()){
+                    character.selected = true;
+                    break;
+                }
+            }
+            res.render('createFigure',{
+                title: 'update',
+                characters: results.characters,
+                figure: results.figure,
+            })
+        }
+    )
 }
