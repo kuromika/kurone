@@ -15,24 +15,32 @@ block content
                     option(value=character._id selected=character.selected) #{character.name}
         div
             label(for='manufacturer') Manufacturer: 
-            input(type='text' name='manufacturer' id='manufacturer')
+            input(type='text' name='manufacturer' id='manufacturer'
+                value=(figure !== undefined? figure.manufacturer : ''))
         div
             label(for='specs') Specifications:
-            input(type='text' name='specs' id='specs')
+            input(type='text' name='specs' id='specs'
+                value=(figure !== undefined? figure.specs : ''))
         div
             label(for='includes') Includes:
-            input(type='text' name='includes' id='includes')
+            input(type='text' name='includes' id='includes'
+                value=(figure !== undefined? figure.includes : ''))
         div
-            label(for='price') Price:
-            input(type='number' name='price' id='price')
+            label(for='price') Price (USD):
+            input(type='number' name='price' id='price'
+                value=(figure !== undefined? figure.price : ''))
         div
             label(for='height') Height (in cm):
-            input(type='number' step='0.1' min='0' name='height' id='height')
+            input(type='number' step='0.1' min='0' name='height' id='height'
+                value=(figure !== undefined? figure.height : ''))
         div
             label(for='store') Store link:
-            input(type='url' name='store' id='store')
-        button(type='submit') Create
+            input(type='url' name='store' id='store'
+                value=(figure !== undefined? figure.store : ''))
+        button(type='submit')
+            span= (title === 'update'? 'Update': 'Create')
     if errors
+        h2 Fix the next errors and try again:  
         ul
             each error in errors
                 li= error.msg
